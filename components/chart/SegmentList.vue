@@ -1,19 +1,26 @@
 <script setup lang="ts">
 import SegmentItem from "~/components/chart/SegmentItem.vue";
 
+import type { ISegment } from "~/types/chart";
+
 defineProps<{
-  data: {
-    title: string;
-    percent: number;
-    color: string;
-  };
+  data: Array<ISegment>;
+}>();
+
+defineEmits<{
+  (e: "remove-segment", id: number): void;
+  (e: "edit-segment", id: number): void;
 }>();
 </script>
 
 <template>
   <ul class="chart-segment-list">
     <li v-for="segment in data" class="chart-segment-list__item">
-      <SegmentItem :data="segment" />
+      <SegmentItem
+        :data="segment"
+        @remove="$emit('remove-segment', segment.id)"
+        @edit="$emit('edit-segment', segment.id)"
+      />
     </li>
   </ul>
 </template>

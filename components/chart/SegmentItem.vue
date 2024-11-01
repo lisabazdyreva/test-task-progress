@@ -1,18 +1,22 @@
 <script setup lang="ts">
-import EditIcon from '~/components/icons/EditIcon.vue';
-import RemoveIcon from '~/components/icons/RemoveIcon.vue';
+import EditIcon from "~/components/icons/EditIcon.vue";
+import RemoveIcon from "~/components/icons/RemoveIcon.vue";
+
+import type { ISegment } from "~/types/chart";
 
 defineProps<{
-  data: {
-    title: string;
-    percent: number;
-    color: string;
-  };
+  data: ISegment;
+}>();
+
+defineEmits<{
+  (e: "remove"): void;
+  (e: "edit"): void;
 }>();
 </script>
 
 <template>
   <div class="chart-segment-item">
+    <!--    todo lisa сделать фиксированную ширину для процента-->
     <div class="chart-segment-item__info info">
       <div class="info__title">{{ data.title }}</div>
       <div class="info__percent">{{ data.percent }}%</div>
@@ -20,10 +24,14 @@ defineProps<{
     </div>
 
     <div class="chart-segment-item__actions actions">
-      <button class="actions__edit-button" type="button">
+      <button class="actions__edit-button" type="button" @click="$emit('edit')">
         <EditIcon class="actions__edit-icon" />
       </button>
-      <button class="actions__remove-button" type="button">
+      <button
+        class="actions__remove-button"
+        type="button"
+        @click="$emit('remove')"
+      >
         <RemoveIcon class="actions__remove-icon" />
       </button>
     </div>

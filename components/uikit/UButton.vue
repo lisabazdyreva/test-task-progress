@@ -2,15 +2,17 @@
 withDefaults(
   defineProps<{
     type?: "button" | "submit";
+    disabled?: boolean;
   }>(),
   {
     type: "button",
+    disabled: false,
   },
 );
 </script>
 
 <template>
-  <button class="u-button" :type="type">
+  <button class="u-button" :type="type" :disabled="disabled">
     <slot />
   </button>
 </template>
@@ -30,6 +32,11 @@ withDefaults(
 
   &:hover {
     background-color: var(--accent-blue-hover);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: var(--accent-gray);
   }
 }
 </style>

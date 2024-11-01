@@ -1,13 +1,14 @@
 :root {
   --text-color: #252f4a;
   --text-color-inverse: #ffffff;
-  --text-gray: #99A1B7;
+  --text-gray: #99a1b7;
 
   --accent-gray: #dbdfe9;
   --accent-gray-hover: #b7bac2;
   --accent-blue: #1b84ff;
   --accent-blue-hover: #145fb7;
   --accent-gray-transparent: #dbdfe933;
+  --accent-red: #ce144b;
 
   --light-bg: #ffffff;
   --dark-trasparent-bg: #00000080;

@@ -1,19 +1,31 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    label: string;
+    label?: string;
     placeholder?: string;
     modelValue: string;
     type?: "number" | "text" | "password";
+    max?: number;
+    min?: number;
   }>(),
   {},
 );
+
+defineEmits<{
+  (e: "update:model-value", value: string): void;
+}>();
 </script>
 
 <template>
   <label class="u-input">
     <span class="u-input__placeholder">{{ label }}</span>
-    <input class="u-input__input" :placeholder="placeholder" :type="type" name="name" value="123" />
+    <input
+      class="u-input__input"
+      :placeholder="placeholder"
+      :type="type"
+      :value="modelValue"
+      @input="$emit('update:model-value', $event.target.value)"
+    />
   </label>
 </template>
 
@@ -25,7 +37,7 @@ withDefaults(
 
   .u-input__placeholder {
     font-size: var(--size-12);
-    color: var( --text-gray);
+    color: var(--text-gray);
     position: absolute;
     left: 20px;
     top: 10px;
