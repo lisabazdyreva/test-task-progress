@@ -2,7 +2,7 @@
 const props = withDefaults(
   defineProps<{
     percent?: number;
-    theme?: 'default' | "dashboard";
+    theme?: "default" | "dashboard";
     speed?: number;
   }>(),
   {
@@ -63,27 +63,26 @@ const progressOffset = computed(() =>
   width: 100px;
   height: 100px;
 
+  .circle-progressbar__progress-result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 
-	.circle-progressbar__progress-result {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: 100%;
-		height: 100%;
+    position: absolute;
+    font-size: 1rem;
+    line-height: 1rem;
+  }
 
-		position: absolute;
-		font-size: 1rem;
-		line-height: 1rem;
-	}
+  .circle-progressbar__svg {
+    z-index: 1;
 
-	.circle-progressbar__svg {
-		z-index: 1;
-
-		.circle-progressbar__gradient {
-			transform-origin: center;
-			transition: stroke-dashoffset ease-in-out v-bind(speedMs);
-			stroke-opacity: 0.6;
-		}
-	}
+    .circle-progressbar__gradient {
+      transform-origin: center;
+      transition: stroke-dashoffset ease-in-out v-bind(speedMs);
+      stroke-opacity: 0.6;
+    }
+  }
 }
 </style>
