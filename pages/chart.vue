@@ -123,6 +123,7 @@ const editSegment = (editId: number) => {
 .chart-page {
   .chart-page__title {
     font-size: var(--size-32);
+    font-weight: 600;
     color: var(--text-color);
     border-bottom: 1px solid var(--accent-gray);
     margin: 0 0 40px 0;
@@ -163,6 +164,8 @@ const editSegment = (editId: number) => {
         order: unset;
         margin-bottom: 0;
         margin-left: 90px;
+        max-width: 500px;
+        width: 100%;
       }
 
       .chart-content__settings {

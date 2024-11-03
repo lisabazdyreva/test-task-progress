@@ -55,6 +55,14 @@ const onInput = (evt: Event) => {
     padding: 26px 20px 10px;
     border: 1px solid var(--accent-gray);
     outline: none;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    -moz-appearance: textfield;
   }
 
   .u-input__input:focus {

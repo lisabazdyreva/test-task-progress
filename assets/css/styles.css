@@ -8,7 +8,10 @@
   --accent-blue: #1b84ff;
   --accent-blue-hover: #145fb7;
   --accent-gray-transparent: #dbdfe933;
-  --accent-red: #ce144b;
+
+  --accent-red: #ff4949;
+  --accent-green: #12ce66;
+  --accent-yellow: #e7a23d;
 
   --light-bg: #ffffff;
   --dark-trasparent-bg: #00000080;
@@ -29,6 +32,8 @@
 }
 body {
   margin: 0;
+  font-weight: 400;
+  font-family: "Inter", sans-serif;
 }
 
 * {

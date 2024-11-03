@@ -13,6 +13,7 @@
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
+    "@nuxtjs/google-fonts": "^3.2.0",
     "nuxt": "^3.13.2",
     "vue": "latest",
     "vue-chartjs": "^5.3.2",
