@@ -2,8 +2,8 @@
 import CircleProgressbar from "~/components/common/CircleProgressbar.vue";
 import UButton from "~/components/uikit/UButton.vue";
 
-import {ProgressbarTheme} from "~/const/progressbar";
-import {ButtonTheme} from '~/const';
+import { ProgressbarTheme } from "~/const/progressbar";
+import { ButtonTheme } from "~/const";
 
 const MAX_PERCENT = 100;
 

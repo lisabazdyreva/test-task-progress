@@ -57,7 +57,7 @@ onUnmounted(() => {
     padding: 0;
 
     position: absolute;
-    right: 20px;
+    right: var(--modal-pd);
     cursor: pointer;
     z-index: 1;
   }
@@ -100,9 +100,13 @@ onUnmounted(() => {
 
   .common-modal-wrapper__inner-wrapper {
     position: relative;
+    width: calc(100% - 40px);
+    min-width: 250px;
+    max-width: 390px;
     border-radius: 15px;
     background-color: var(--light-bg);
-    padding: 20px;
+
+    padding: var(--modal-pd) 0 var(--modal-pd) var(--modal-pd);
     z-index: 2;
   }
 }

@@ -87,39 +87,41 @@ const handleColorChange = (value: string) => {
       </p>
     </div>
 
-    <UInput
-      class="chart-form__input"
-      v-model="title"
-      placeholder="Наименование"
-      label="Наименование"
-      type="text"
-    />
+    <div class="chart-form__content">
+      <UInput
+        class="chart-form__input"
+        v-model="title"
+        placeholder="Наименование"
+        label="Наименование"
+        type="text"
+      />
 
-    <UInput
-      class="chart-form__input"
-      v-model="percent"
-      label="Значение"
-      placeholder="Значение"
-      type="number"
-    />
+      <UInput
+        class="chart-form__input"
+        v-model="percent"
+        label="Значение"
+        placeholder="Значение"
+        type="number"
+      />
 
-    <UInput
-      class="chart-form__input"
-      :model-value="colorName"
-      label="Цвет"
-      placeholder="Цвет"
-      type="text"
-    />
+      <UInput
+        class="chart-form__input"
+        :model-value="colorName"
+        label="Цвет"
+        placeholder="Цвет"
+        type="text"
+      />
 
-    <ColorPickerInput
-      class="chart-form__color-picker"
-      :color="color"
-      @color-change="handleColorChange"
-    />
+      <ColorPickerInput
+        class="chart-form__color-picker"
+        :color="color"
+        @color-change="handleColorChange"
+      />
 
-    <UButton :disabled="!title || !color || !percent" type="submit">
-      {{ isEditMode ? "Сохранить изменения" : "Добавить сектор" }}
-    </UButton>
+      <UButton :disabled="!title || !color || !percent" type="submit">
+        {{ isEditMode ? "Сохранить изменения" : "Добавить сектор" }}
+      </UButton>
+    </div>
   </form>
 </template>
 
@@ -127,7 +129,13 @@ const handleColorChange = (value: string) => {
 .chart-form {
   display: flex;
   flex-direction: column;
-  width: 390px;
+
+  .chart-form__content {
+    max-height: calc(100vh - 45px - 60px);
+    max-height: calc(100svh - 45px - 60px);
+    overflow: auto;
+    padding-right: var(--modal-pd);
+  }
 
   .chart-form__header {
     position: relative;

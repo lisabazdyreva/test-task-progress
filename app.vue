@@ -36,6 +36,12 @@ const menuList = [
 
 <style scoped>
 .app {
+  .app__header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+  }
+
   .nav {
     padding-top: 8px;
     padding-bottom: 8px;
@@ -61,6 +67,8 @@ const menuList = [
       display: flex;
       text-decoration: none;
       padding: 16px 8px;
+      font-size: var(--size-16);
+      line-height: var(--size-20);
 
       transition: color ease-in-out 0.1s;
       color: var(--text-color);
