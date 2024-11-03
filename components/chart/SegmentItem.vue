@@ -64,13 +64,33 @@ defineEmits<{
     }
 
     .info__percent {
+      width: 88px;
+      border-radius: 2px;
+      position: relative;
+
       font-size: var(--size-16);
       line-height: var(--size-24);
+      text-align: center;
       flex-shrink: 0;
-      border-left: 2px solid var(--accent-gray);
-      border-right: 2px solid var(--accent-gray);
-      padding-right: 25px;
-      padding-left: 25px;
+    }
+
+    .info__percent:before {
+      content: "";
+      position: absolute;
+      height: 100%;
+      width: 2px;
+      background-color: var(--accent-gray);
+      left: 0;
+      border-radius: 2px;
+    }
+
+    .info__percent:after {
+      content: "";
+      position: absolute;
+      height: 100%;
+      width: 2px;
+      background-color: var(--accent-gray);
+      right: 0;
       border-radius: 2px;
     }
 

@@ -21,3 +21,10 @@
   --size-20: 1.25rem;
   --size-24: 1.5rem;
 }
+body {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}

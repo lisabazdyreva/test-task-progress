@@ -37,9 +37,9 @@ const handleAddSegmentButtonClick = () => {
   isEditMode.value = false;
 
   editableSegment.value = {
-    id: segments.value?.length + 1 ?? 0,
+    id: segments.value?.length + 1,
     title: "",
-    color: "",
+    color: "#000000",
     percent: 0,
   };
 };
@@ -56,7 +56,6 @@ const handleAddSegmentSubmit = (data: ISegment) => {
     if (index < 0) {
       return;
     }
-
 
     segments.value = [
       ...segments.value.slice(0, index),
@@ -77,7 +76,8 @@ const removeSegment = (removedId: number) => {
 const editSegment = (editId: number) => {
   isShowChartModal.value = true;
   isEditMode.value = true;
-  editableSegment.value = segments.value.find(({ id }) => id === editId);
+  editableSegment.value =
+    segments.value.find(({ id }) => id === editId) ?? null;
 };
 </script>
 
@@ -106,7 +106,7 @@ const editSegment = (editId: number) => {
       </div>
     </div>
     <ModalWrapper
-      v-if="isShowChartModal"
+      v-if="isShowChartModal && editableSegment"
       class="chart-page__modal"
       @close="handleCloseModalButtonClick"
     >
@@ -121,12 +121,14 @@ const editSegment = (editId: number) => {
 
 <style scoped>
 .chart-page {
+  margin-top: 30px;
   .chart-page__title {
     font-size: var(--size-32);
     color: var(--text-color);
     border-bottom: 1px solid var(--accent-gray);
     margin: 0 0 40px 0;
     padding-bottom: 30px;
+    padding-left: 10px;
   }
 
   .chart-content {
@@ -134,6 +136,7 @@ const editSegment = (editId: number) => {
     flex-direction: column;
     .chart-content__pie-chart {
       order: 1;
+      margin-bottom: 30px;
     }
 
     .chart-content__settings {
@@ -144,6 +147,27 @@ const editSegment = (editId: number) => {
   .settings {
     .settings__list {
       margin-bottom: 30px;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .chart-page {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1170px;
+    .chart-content {
+      flex-direction: row;
+      justify-content: center;
+      .chart-content__pie-chart {
+        order: unset;
+        margin-bottom: 0;
+        margin-left: 90px;
+      }
+
+      .chart-content__settings {
+        order: unset;
+      }
     }
   }
 }

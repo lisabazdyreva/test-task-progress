@@ -5,7 +5,7 @@ const emits = defineEmits<{
 
 const handleEscKeydown = (evt: KeyboardEvent) => {
   if (evt.key === "Escape") {
-    emits('close');
+    emits("close");
   }
 };
 
@@ -20,9 +20,13 @@ onUnmounted(() => {
 
 <template>
   <div class="common-modal-wrapper">
-    <div class="common-modal-wrapper__bg" @click="() => $emit('close')"/>
+    <div class="common-modal-wrapper__bg" @click="() => $emit('close')" />
     <div class="common-modal-wrapper__inner-wrapper">
-      <button type="button" @click="$emit('close')">Close</button>
+      <button
+        class="common-modal-wrapper__close-button"
+        type="button"
+        @click="$emit('close')"
+      />
       <slot />
     </div>
   </div>
@@ -39,6 +43,52 @@ onUnmounted(() => {
   right: 0;
   left: 0;
 
+  .common-modal-wrapper__close-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: none;
+    border-radius: 4px;
+    background-color: transparent;
+
+    width: 20px;
+    height: 20px;
+    padding: 0;
+
+    position: absolute;
+    right: 20px;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  .common-modal-wrapper__close-button:hover::after,
+  .common-modal-wrapper__close-button:hover::before {
+    background-color: var(--accent-gray-hover);
+  }
+
+  .common-modal-wrapper__close-button::before {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    background-color: var(--accent-gray);
+    transition: background-color ease-in-out 0.1s;
+    transform: rotate(45deg);
+    border-radius: 2px;
+  }
+
+  .common-modal-wrapper__close-button::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    background-color: var(--accent-gray);
+    transition: background-color ease-in-out 0.1s;
+    transform: rotate(-45deg);
+    border-radius: 2px;
+  }
+
   .common-modal-wrapper__bg {
     position: absolute;
     top: 0;
@@ -49,6 +99,7 @@ onUnmounted(() => {
   }
 
   .common-modal-wrapper__inner-wrapper {
+    position: relative;
     border-radius: 15px;
     background-color: var(--light-bg);
     padding: 20px;

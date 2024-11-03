@@ -16,7 +16,7 @@ const getValuesByKey = (
   arr: Array<{ title: string; percent: number; color: string }>,
   key: "title" | "percent" | "color",
 ) => {
-  return arr.reduce((prev, curr) => {
+  return arr.reduce((prev: (string | number)[], curr) => {
     prev = [...prev, curr?.[key]];
     return prev;
   }, []);
@@ -39,6 +39,20 @@ const data = computed(() => ({
 const options = {
   responsive: true,
   maintainAspectRatio: false,
+
+  plugins: {
+    legend: {
+      display: true,
+      position: "bottom",
+      labels: {
+        boxHeight: 14,
+        boxWidth: 14,
+        usePointStyle: true,
+        color: "#3C3C3C",
+        padding: 30,
+      },
+    },
+  },
 };
 
 ChartJS.register(ArcElement, Tooltip, Legend);

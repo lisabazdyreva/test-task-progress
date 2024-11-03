@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { GetColorName } from "hex-color-to-color-name";
+
 import UInput from "~/components/uikit/UInput.vue";
 import UButton from "~/components/uikit/UButton.vue";
+import ColorPickerInput from "~/components/common/ColorPickerInput.vue";
 
 import type { ISegment } from "~/types/chart";
 
@@ -17,6 +20,8 @@ const title = ref<string>(props.data.title);
 const color = ref<string>(props.data.color);
 const percent = ref<string>(props.data.percent.toString());
 const errorMessage = ref<string | null>(null);
+
+const colorName = computed(() => GetColorName(color.value.slice(0, 7)));
 
 const checkIsTitleValid = (value: string) => {
   if (value?.length >= 1) {
@@ -63,7 +68,7 @@ const handleChartFormSubmit = () => {
   emits("submit", {
     title: title.value,
     color: color.value,
-    percent: percent.value,
+    percent: Number(percent.value),
     id: props.data.id,
   });
 };
@@ -72,6 +77,10 @@ const show = () => {
   console.log("title", title.value);
   console.log("color", color.value);
   console.log("percent", Number(percent.value));
+};
+
+const handleColorChange = (value: string) => {
+  color.value = value;
 };
 </script>
 
@@ -102,16 +111,21 @@ const show = () => {
 
     <UInput
       class="chart-form__input"
-      v-model="color"
+      :model-value="colorName"
       label="Цвет"
       placeholder="Цвет"
       type="text"
     />
 
+    <ColorPickerInput
+      class="chart-form__color-picker"
+      :color="color"
+      @color-change="handleColorChange"
+    />
+
     <UButton :disabled="!title || !color || !percent" type="submit">
-      {{ isEditMode ? "Cохранить изменения" : "Добавить сектор" }}
+      {{ isEditMode ? "Сохранить изменения" : "Добавить сектор" }}
     </UButton>
-    <!--    <button type="button" @click="show">Show</button> todo lisa remove-->
   </form>
 </template>
 
@@ -119,7 +133,6 @@ const show = () => {
 .chart-form {
   display: flex;
   flex-direction: column;
-  /*width: 100%; max-*/
   width: 390px;
 
   .chart-form__header {
@@ -144,6 +157,10 @@ const show = () => {
 
   .chart-form__input:last-child {
     margin-bottom: 0;
+  }
+
+  .chart-form__color-picker {
+    margin-bottom: 20px;
   }
 }
 </style>
