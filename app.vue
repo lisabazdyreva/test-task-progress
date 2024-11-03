@@ -1,17 +1,73 @@
-<template>
-  <div>
-    <!--    <header>-->
-    <!--      <NuxtLink to="/">-->
-    <!--        Home-->
-    <!--      </NuxtLink>-->
+<script setup lang="ts">
+const menuList = [
+  {
+    title: "Главная",
+    link: "/",
+  },
+  {
+    title: "Диаграмма",
+    link: "/chart",
+  }
+];
+</script>
 
-    <!--      <NuxtLink to="/chart">-->
-    <!--        Chart-->
-    <!--      </NuxtLink>-->
-    <!--    </header>-->
-    <main>
+<template>
+  <div class="app">
+    <header class="app__header">
+      <nav class="app__nav nav">
+        <ul class="nav__list">
+          <li v-for="menuItem in menuList" class="nav__item" :key="menuItem.link">
+            <NuxtLink class="nav__link" :to="menuItem.link">
+              {{ menuItem.title }}
+            </NuxtLink>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main class="app__main">
       <NuxtPage />
     </main>
   </div>
 </template>
-<script setup lang="ts"></script>
+
+<style scoped>
+.app {
+  .nav {
+    background-color: var(--accent-gray);
+
+    .nav__list {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0;
+      margin: 0 20px 0 20px;
+      list-style: none;
+    }
+
+    .nav__item {
+      margin-right: 8px;
+    }
+
+    .nav__item:last-child {
+      margin-right: 0;
+    }
+
+    .nav__link {
+      display: flex;
+      text-decoration: none;
+      padding: 16px 8px;
+
+      transition: color ease-in-out 0.1s;
+      color: var(--text-color);
+    }
+
+    .nav__link.router-link-exact-active {
+      color: var(--accent-blue);
+    }
+
+    .nav__link:hover {
+      color: var(--accent-blue);
+    }
+  }
+
+}
+</style>
