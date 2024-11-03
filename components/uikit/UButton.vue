@@ -1,18 +1,27 @@
 <script setup lang="ts">
+import { ButtonTheme } from "~/const";
+
 withDefaults(
   defineProps<{
     type?: "button" | "submit";
     disabled?: boolean;
+    theme?: ButtonTheme;
   }>(),
   {
     type: "button",
     disabled: false,
+    theme: ButtonTheme.Default,
   },
 );
 </script>
 
 <template>
-  <button class="u-button" :type="type" :disabled="disabled">
+  <button
+    class="u-button"
+    :class="{ 'u-button--outline': theme === ButtonTheme.Outline }"
+    :type="type"
+    :disabled="disabled"
+  >
     <slot />
   </button>
 </template>
@@ -37,6 +46,17 @@ withDefaults(
   &:disabled {
     cursor: not-allowed;
     background-color: var(--accent-gray);
+  }
+}
+
+.u-button.u-button--outline {
+  background-color: transparent;
+  color: var(--text-color);
+  border: 2px solid var(--accent-blue);
+  padding: 16px 0;
+
+  &:hover {
+    background-color: #00000020;
   }
 }
 </style>

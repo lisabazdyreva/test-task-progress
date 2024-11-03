@@ -1,42 +1,49 @@
 <script setup lang="ts">
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  type ChartOptions,
+  type ChartData,
+} from "chart.js";
 import { Pie } from "vue-chartjs";
+import type { ISegment } from "~/types/chart";
 
 const props = defineProps<{
-  data: Array<{
-    title: string;
-    percent: number;
-    color: string;
-  }>;
+  data: Array<ISegment>;
 }>();
 
-const dataComputed = ref(props.data);
+type SegmentKey = keyof ISegment;
 
-const getValuesByKey = (
-  arr: Array<{ title: string; percent: number; color: string }>,
-  key: "title" | "percent" | "color",
-) => {
-  return arr.reduce((prev: (string | number)[], curr) => {
-    prev = [...prev, curr?.[key]];
+const getValuesByKey = <T,>(
+  arr: Array<ISegment>,
+  key: SegmentKey,
+): Array<T> => {
+  return arr.reduce((prev: T[], curr) => {
+    const val = curr?.[key] as T;
+    prev = [...prev, val];
     return prev;
   }, []);
 };
 
-const labels = computed(() => getValuesByKey(props.data, "title"));
-const colors = computed(() => getValuesByKey(props.data, "color"));
-const percents = computed(() => getValuesByKey(props.data, "percent"));
+const labels = computed(() => getValuesByKey<string>(props.data, "title"));
+const colors = computed(() => getValuesByKey<string>(props.data, "color"));
+const percents = computed(() => getValuesByKey<number>(props.data, "percent"));
 
-const data = computed(() => ({
-  labels: labels.value,
-  datasets: [
-    {
-      backgroundColor: colors.value,
-      data: percents.value,
-    },
-  ],
-}));
+const data = computed<ChartData<"pie", number[], unknown>>(() => {
+  return {
+    labels: labels.value,
+    datasets: [
+      {
+        backgroundColor: colors.value,
+        data: percents.value,
+      },
+    ],
+  };
+});
 
-const options = {
+const options: ChartOptions<"pie"> = {
   responsive: true,
   maintainAspectRatio: false,
 

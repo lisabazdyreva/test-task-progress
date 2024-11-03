@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import { ProgressbarTheme } from "~/const/progressbar";
+
 const props = withDefaults(
   defineProps<{
     percent?: number;
-    theme?: "default" | "dashboard";
+    theme: ProgressbarTheme;
     speed?: number;
   }>(),
   {
-    theme: "default",
     percent: 0,
     speed: 100,
   },
@@ -43,10 +44,13 @@ const progressOffset = computed(() =>
         cy="50"
         fill="none"
         stroke-width="5"
-        stroke="red"
+        stroke="blue"
         stroke-linecap="round"
         :style="{
-          transform: theme === 'default' ? 'rotate(-88deg)' : 'rotate(90deg)',
+          transform:
+            theme === ProgressbarTheme.Default
+              ? 'rotate(-90deg)'
+              : 'rotate(90deg)',
         }"
         :stroke-dasharray="circumferenceLength"
         :stroke-dashoffset="progressOffset"
@@ -60,8 +64,8 @@ const progressOffset = computed(() =>
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
 
   .circle-progressbar__progress-result {
     display: flex;

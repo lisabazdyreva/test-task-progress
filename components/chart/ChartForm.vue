@@ -73,12 +73,6 @@ const handleChartFormSubmit = () => {
   });
 };
 
-const show = () => {
-  console.log("title", title.value);
-  console.log("color", color.value);
-  console.log("percent", Number(percent.value));
-};
-
 const handleColorChange = (value: string) => {
   color.value = value;
 };

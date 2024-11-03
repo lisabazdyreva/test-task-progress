@@ -121,7 +121,6 @@ const editSegment = (editId: number) => {
 
 <style scoped>
 .chart-page {
-  margin-top: 30px;
   .chart-page__title {
     font-size: var(--size-32);
     color: var(--text-color);
@@ -156,6 +155,7 @@ const editSegment = (editId: number) => {
     margin-left: auto;
     margin-right: auto;
     max-width: 1170px;
+
     .chart-content {
       flex-direction: row;
       justify-content: center;
@@ -168,6 +168,11 @@ const editSegment = (editId: number) => {
       .chart-content__settings {
         order: unset;
       }
+    }
+
+    .settings {
+      max-width: 540px;
+      width: 100%;
     }
   }
 }

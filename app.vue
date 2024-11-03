@@ -7,7 +7,7 @@ const menuList = [
   {
     title: "Диаграмма",
     link: "/chart",
-  }
+  },
 ];
 </script>
 
@@ -16,7 +16,11 @@ const menuList = [
     <header class="app__header">
       <nav class="app__nav nav">
         <ul class="nav__list">
-          <li v-for="menuItem in menuList" class="nav__item" :key="menuItem.link">
+          <li
+            v-for="menuItem in menuList"
+            class="nav__item"
+            :key="menuItem.link"
+          >
             <NuxtLink class="nav__link" :to="menuItem.link">
               {{ menuItem.title }}
             </NuxtLink>
@@ -33,6 +37,8 @@ const menuList = [
 <style scoped>
 .app {
   .nav {
+    padding-top: 8px;
+    padding-bottom: 8px;
     background-color: var(--accent-gray);
 
     .nav__list {
@@ -44,7 +50,7 @@ const menuList = [
     }
 
     .nav__item {
-      margin-right: 8px;
+      margin-right: 16px;
     }
 
     .nav__item:last-child {
@@ -69,5 +75,10 @@ const menuList = [
     }
   }
 
+  .app__main {
+    margin-right: 4px;
+    margin-left: 4px;
+    margin-top: 30px;
+  }
 }
 </style>

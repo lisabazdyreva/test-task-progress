@@ -4,7 +4,7 @@ import RemoveIcon from "~/components/icons/RemoveIcon.vue";
 
 import type { ISegment } from "~/types/chart";
 
-defineProps<{
+const props = defineProps<{
   data: ISegment;
 }>();
 
@@ -12,6 +12,8 @@ defineEmits<{
   (e: "remove"): void;
   (e: "edit"): void;
 }>();
+
+const bgColor = computed(() => props.data?.color);
 </script>
 
 <template>
@@ -98,7 +100,7 @@ defineEmits<{
       flex-shrink: 0;
       width: 20px;
       height: 20px;
-      background-color: v-bind(data.color);
+      background-color: v-bind(bgColor);
       border-radius: 50%;
       margin-left: 25px;
     }

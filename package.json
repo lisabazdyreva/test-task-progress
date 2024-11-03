@@ -9,7 +9,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "prettier": "prettier . --write",
-    "lint": "eslint \".ts,.vue\" ."
+    "lint": "eslint \".ts,.vue\" .",
+    "typecheck": "nuxt typecheck"
   },
   "dependencies": {
     "nuxt": "^3.13.2",

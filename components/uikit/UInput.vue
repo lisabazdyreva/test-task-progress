@@ -11,9 +11,14 @@ withDefaults(
   {},
 );
 
-defineEmits<{
+const emits = defineEmits<{
   (e: "update:model-value", value: string): void;
 }>();
+
+const onInput = (evt: Event) => {
+  const target = evt.target as HTMLInputElement;
+  emits("update:model-value", target.value);
+};
 </script>
 
 <template>
@@ -24,7 +29,7 @@ defineEmits<{
       :placeholder="placeholder"
       :type="type"
       :value="modelValue"
-      @input="$emit('update:model-value', $event.target.value)"
+      @input="onInput"
     />
   </label>
 </template>
