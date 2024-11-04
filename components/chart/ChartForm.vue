@@ -18,17 +18,23 @@ const emits = defineEmits<{
 
 const title = ref<string>(props.data.title);
 const color = ref<string>(props.data.color);
-const percent = ref<string>(props.data.percent.toString());
+const percent = ref<string>(
+  props.data.percent ? props.data.percent.toString() : undefined,
+);
 const errorMessage = ref<string | null>(null);
 
 const colorName = computed(() => GetColorName(color.value.slice(0, 7)));
 
 const checkIsTitleValid = (value: string) => {
-  if (value?.length >= 1) {
+  if (value?.length >= 2) {
     return true;
   }
 
-  errorMessage.value = "Введите наименование сегмента";
+  if (value?.length < 2) {
+    errorMessage.value = "Введите наименование сегмента";
+  } else {
+    errorMessage.value = "Минимальная длина наименования - 2";
+  }
   return false;
 };
 
@@ -37,7 +43,13 @@ const checkIsPercentValid = (value: string) => {
     return true;
   }
 
-  errorMessage.value = "Введите значение в процентах";
+  if (Number(value) > 100) {
+    errorMessage.value = "Максимальное значение процента - 100";
+  } else if (Number(value) < 1) {
+    errorMessage.value = "Минимальное значение процента - 100";
+  } else {
+    errorMessage.value = "Введите значение в процентах";
+  }
   return false;
 };
 
@@ -91,7 +103,7 @@ const handleColorChange = (value: string) => {
       <UInput
         class="chart-form__input"
         v-model="title"
-        placeholder="Наименование"
+        placeholder="Сектор-1"
         label="Наименование"
         type="text"
       />
@@ -100,7 +112,7 @@ const handleColorChange = (value: string) => {
         class="chart-form__input"
         v-model="percent"
         label="Значение"
-        placeholder="Значение"
+        placeholder="25"
         type="number"
       />
 
@@ -108,7 +120,7 @@ const handleColorChange = (value: string) => {
         class="chart-form__input"
         :model-value="colorName"
         label="Цвет"
-        placeholder="Цвет"
+        placeholder="Black"
         type="text"
       />
 

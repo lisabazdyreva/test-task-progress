@@ -42,6 +42,7 @@ onUnmounted(() => {
   bottom: 0;
   right: 0;
   left: 0;
+  z-index: 2;
 
   .common-modal-wrapper__close-button {
     display: flex;

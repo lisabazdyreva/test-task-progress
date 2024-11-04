@@ -93,6 +93,7 @@ const changePercent = (value: number) => {
 
 <style scoped>
 .home-page {
+  margin-bottom: 20px;
   .home-page__title {
     font-size: var(--size-32);
     color: var(--text-color);
@@ -109,6 +110,7 @@ const changePercent = (value: number) => {
 
 @media screen and (min-width: 768px) {
   .home-page {
+    margin-bottom: 0;
     margin-left: auto;
     margin-right: auto;
     max-width: 1170px;

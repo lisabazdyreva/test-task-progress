@@ -39,13 +39,14 @@ const menuList = [
   .app__header {
     position: sticky;
     top: 0;
+    z-index: 2;
     width: 100%;
   }
 
   .nav {
     padding-top: 8px;
     padding-bottom: 8px;
-    background-color: var(--accent-gray-transparent);
+    background-color: var(--accent-blue);
 
     .nav__list {
       display: flex;
@@ -71,15 +72,15 @@ const menuList = [
       font-weight: 600;
 
       transition: color ease-in-out 0.1s;
-      color: var(--text-color);
+      color: var(--text-color-inverse);
     }
 
     .nav__link.router-link-exact-active {
-      color: var(--accent-blue);
+      color: var(--accent-gray);
     }
 
     .nav__link:hover {
-      color: var(--accent-blue-hover);
+      color: var(--accent-gray-hover);
     }
   }
 

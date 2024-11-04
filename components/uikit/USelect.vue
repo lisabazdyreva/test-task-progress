@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   modelValue: string;
   options: Array<string>;
   labels: Record<string, string>;
@@ -7,9 +7,16 @@ defineProps<{
   disabled: boolean;
 }>();
 
-defineEmits<{
+const emits = defineEmits<{
   (e: "select", evt: Event): void;
 }>();
+
+const handleSelectChange = (evt: Event) => {
+  if (props?.disabled) {
+    return;
+  }
+  emits("select", evt);
+};
 </script>
 
 <template>
@@ -21,7 +28,7 @@ defineEmits<{
       :disabled="disabled"
       :value="modelValue"
       :name="name"
-      @change="(evt: Event) => $emit('select', evt)"
+      @change="handleSelectChange"
     >
       <option v-for="option in options" :key="option" :value="option">
         {{ labels[option] }}

@@ -97,7 +97,11 @@ const editSegment = (editId: number) => {
           @remove-segment="removeSegment"
           @edit-segment="editSegment"
         />
-        <UButton type="button" @click="handleAddSegmentButtonClick">
+        <UButton
+          v-if="segments?.length < 10"
+          type="button"
+          @click="handleAddSegmentButtonClick"
+        >
           Добавить сектор
         </UButton>
       </div>
@@ -121,6 +125,7 @@ const editSegment = (editId: number) => {
 
 <style scoped>
 .chart-page {
+  margin-bottom: 20px;
   .chart-page__title {
     font-size: var(--size-32);
     font-weight: 600;
@@ -148,6 +153,11 @@ const editSegment = (editId: number) => {
     .settings__list {
       margin-bottom: 30px;
     }
+    .settings__caption {
+      margin: 0 0 20px 0;
+      font-size: var(--size-12);
+      color: var(--accent-red);
+    }
   }
 }
 
@@ -155,6 +165,7 @@ const editSegment = (editId: number) => {
   .chart-page {
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 0;
     max-width: 1170px;
 
     .chart-content {

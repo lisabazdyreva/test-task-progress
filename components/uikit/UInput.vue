@@ -1,19 +1,21 @@
 <script setup lang="ts">
-withDefaults(
+const props = withDefaults(
   defineProps<{
     label?: string;
     placeholder?: string;
-    modelValue: string;
+    modelValue?: string;
     disabled?: boolean;
     type?: "number" | "text" | "password";
     max?: number;
     min?: number;
+    inputmode?: "text" | "numeric";
   }>(),
   {
     label: "",
     placeholder: "",
     disabled: false,
     type: "text",
+    inputmode: "text",
   },
 );
 
@@ -22,6 +24,9 @@ const emits = defineEmits<{
 }>();
 
 const onInput = (evt: Event) => {
+  if (props?.disabled) {
+    return;
+  }
   const target = evt.target as HTMLInputElement;
   emits("update:model-value", target.value);
 };
@@ -29,11 +34,12 @@ const onInput = (evt: Event) => {
 
 <template>
   <label class="u-input">
-    <span class="u-input__placeholder">{{ label }}</span>
+    <span class="u-input__label">{{ label }}</span>
     <input
       class="u-input__input"
       :placeholder="placeholder"
       :type="type"
+      :inputmode="inputmode"
       :disabled="disabled"
       :value="modelValue"
       @input="onInput"
@@ -47,7 +53,7 @@ const onInput = (evt: Event) => {
   display: flex;
   flex-direction: column;
 
-  .u-input__placeholder {
+  .u-input__label {
     font-size: var(--size-12);
     color: var(--text-gray);
     position: absolute;
@@ -70,6 +76,11 @@ const onInput = (evt: Event) => {
     }
 
     -moz-appearance: textfield;
+  }
+
+  .u-input__input::placeholder {
+    color: var(--text-gray);
+    font-size: var(--size-12);
   }
 
   .u-input__input:focus {
