@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import USelect from "~/components/uikit/USelect.vue";
+import UInput from "~/components/uikit/UInput.vue";
 
 import {
   ProgressbarSpeed,
@@ -15,12 +16,14 @@ const props = defineProps<{
   speed: ProgressbarSpeed;
   theme: ProgressbarTheme;
   disabled: boolean;
+  maxPercent: number;
 }>();
 
 const emits = defineEmits<{
   (e: "change-status", status: ProgressbarStatus): void;
   (e: "change-speed", speed: ProgressbarSpeed): void;
   (e: "change-theme", theme: ProgressbarTheme): void;
+  (e: "change-percent", percent: number): void;
 }>();
 
 const statuses = Object.values(ProgressbarStatus);
@@ -91,6 +94,16 @@ const handleThemeChange = (evt: Event) => {
         @select="handleThemeChange"
       />
     </div>
+
+    <UInput
+      :model-value="String(maxPercent)"
+      type="number"
+      label="Процент остановки"
+      :disabled="disabled"
+      @update:model-value="
+        (value: string) => $emit('change-percent', Number(value))
+      "
+    />
   </div>
 </template>
 
@@ -110,7 +123,7 @@ const handleThemeChange = (evt: Event) => {
     flex-direction: column;
     gap: 20px;
     max-width: 450px;
-    margin: 0 auto;
+    margin: 0 auto 20px;
 
     .settings-list__status,
     .settings-list__theme,

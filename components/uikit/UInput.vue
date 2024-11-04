@@ -4,11 +4,17 @@ withDefaults(
     label?: string;
     placeholder?: string;
     modelValue: string;
+    disabled?: boolean;
     type?: "number" | "text" | "password";
     max?: number;
     min?: number;
   }>(),
-  {},
+  {
+    label: "",
+    placeholder: "",
+    disabled: false,
+    type: "text",
+  },
 );
 
 const emits = defineEmits<{
@@ -28,6 +34,7 @@ const onInput = (evt: Event) => {
       class="u-input__input"
       :placeholder="placeholder"
       :type="type"
+      :disabled="disabled"
       :value="modelValue"
       @input="onInput"
     />

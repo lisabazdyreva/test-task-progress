@@ -12,7 +12,9 @@ import {
 const MAX_PERCENT = 100;
 
 const theme = ref<ProgressbarTheme>(ProgressbarTheme.Default);
-const firstPercent = ref(0);
+
+const currentPercent = ref(0);
+const maxPercent = ref(MAX_PERCENT);
 
 const selectedStatus = ref(ProgressbarStatus.Success);
 
@@ -22,17 +24,17 @@ const selectedSpeed = ref(ProgressbarSpeed.High);
 const intervalId = ref<NodeJS.Timeout | undefined>();
 
 const counter = () => {
-  if (firstPercent.value > MAX_PERCENT - 1) {
+  if (currentPercent.value > maxPercent.value - 1) {
     clearInterval(intervalId.value);
     intervalId.value = undefined;
     return;
   }
-  firstPercent.value += 1;
+  currentPercent.value += 1;
 };
 
 const startProgressbar = () => {
-  if (firstPercent.value > MAX_PERCENT - 1) {
-    firstPercent.value = 0;
+  if (currentPercent.value > maxPercent.value - 1) {
+    currentPercent.value = 0;
   }
 
   intervalId.value = setInterval(counter, currentSpeed.value);
@@ -40,18 +42,23 @@ const startProgressbar = () => {
 
 const changeTheme = (selectedTheme: ProgressbarTheme) => {
   theme.value = selectedTheme;
-  firstPercent.value = 0;
+  currentPercent.value = 0;
 };
 
 const changeSpeed = (speed: ProgressbarSpeed) => {
   selectedSpeed.value = speed;
   currentSpeed.value = ProgressbarSpeedMs[speed as ProgressbarSpeed];
-  firstPercent.value = 0;
+  currentPercent.value = 0;
 };
 
 const changeStatus = (status: ProgressbarStatus) => {
   selectedStatus.value = status;
-  firstPercent.value = 0;
+  currentPercent.value = 0;
+};
+
+const changePercent = (value: number) => {
+  maxPercent.value = value;
+  currentPercent.value = 0;
 };
 </script>
 
@@ -65,7 +72,8 @@ const changeStatus = (status: ProgressbarStatus) => {
       :speed="currentSpeed"
       :status="selectedStatus"
       :theme="theme"
-      :percent="firstPercent"
+      :percent="currentPercent"
+      :finish-percent="maxPercent"
       @start="startProgressbar"
     />
 
@@ -73,10 +81,12 @@ const changeStatus = (status: ProgressbarStatus) => {
       :disabled="!!intervalId"
       :speed="selectedSpeed"
       :status="selectedStatus"
+      :max-percent="maxPercent"
       :theme="theme"
       @change-speed="changeSpeed"
       @change-status="changeStatus"
       @change-theme="changeTheme"
+      @change-percent="changePercent"
     />
   </div>
 </template>

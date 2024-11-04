@@ -12,6 +12,7 @@ import {
 const props = withDefaults(
   defineProps<{
     percent?: number;
+    finishPercent: number;
     theme: ProgressbarTheme;
     speed?: number;
     status: ProgressbarStatus;
@@ -23,7 +24,7 @@ const props = withDefaults(
 );
 
 const speedMs = computed(() => `${props.speed}ms`);
-const speedColor = computed(() => `${props.speed * 100}ms`);
+const speedColor = computed(() => `${props.speed * props.finishPercent}ms`);
 const statusColor = computed(() => ProgressbarStatusColor[props.status]);
 
 const circumferenceLength = Math.round(2 * Math.PI * 40);
@@ -46,22 +47,26 @@ const statusIcon = computed(() => {
 <template>
   <div class="circle-progressbar">
     <div class="circle-progressbar__progress-result progress-result">
-      <span v-if="percent < 100" class="progress-result__text"
+      <span
+        class="progress-result__text"
+        :class="{ 'progress-result__text--hide': percent >= finishPercent }"
         >{{ percent }}%</span
       >
-      <template v-else>
-        <component
-          :is="statusIcon"
-          :class="[`progress-result__icon progress-result__icon--${status}`]"
-        />
-      </template>
+      <component
+        :is="statusIcon"
+        :class="[
+          `progress-result__icon progress-result__icon--${status}`,
+          { 'progress-result__icon--hide': percent < finishPercent },
+        ]"
+      />
     </div>
     <svg
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
       class="circle-progressbar__svg"
       :class="{
-        'circle-progressbar__svg--animate': percent > 0 && percent < 100,
+        'circle-progressbar__svg--animate':
+          percent > 0 && percent < finishPercent,
       }"
     >
       <circle
@@ -87,7 +92,7 @@ const statusIcon = computed(() => {
             theme === ProgressbarTheme.Default
               ? 'rotate(-90deg)'
               : 'rotate(90deg)',
-          color: percent < 100 ? '#1b84ff' : statusColor,
+          color: percent < finishPercent ? '#1b84ff' : statusColor,
         }"
         :stroke-dasharray="circumferenceLength"
         :stroke-dashoffset="progressOffset"
@@ -118,9 +123,42 @@ const statusIcon = computed(() => {
     line-height: 1rem;
     color: var(--text-gray);
 
+    .progress-result__text {
+      opacity: 1;
+      transition: opacity ease-in-out 0.5s;
+    }
+
+    .progress-result__text.progress-result__text--hide {
+      position: absolute;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      border: 0;
+      white-space: nowrap;
+      opacity: 0;
+    }
+
     .progress-result__icon {
+      opacity: 1;
       width: 30px;
       height: 30px;
+      transition: opacity ease-in-out 0.3s;
+    }
+
+    .progress-result__icon.progress-result__icon--hide {
+      opacity: 0;
+      position: absolute;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      border: 0;
+      white-space: nowrap;
     }
 
     .progress-result__icon--success {

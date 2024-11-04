@@ -8,6 +8,7 @@ defineProps<{
   theme: ProgressbarTheme;
   status: ProgressbarStatus;
   percent: number;
+  finishPercent: number;
   disabled: boolean;
   speed: number;
 }>();
@@ -36,6 +37,7 @@ defineEmits<{
         :theme="theme"
         :status="status"
         :percent="percent"
+        :finish-percent="finishPercent"
         :speed="speed"
       />
     </div>
