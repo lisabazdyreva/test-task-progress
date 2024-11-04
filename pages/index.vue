@@ -57,6 +57,10 @@ const changeStatus = (status: ProgressbarStatus) => {
 };
 
 const changePercent = (value: number) => {
+  if (MAX_PERCENT < value || value < 1) {
+    return;
+  }
+
   maxPercent.value = value;
   currentPercent.value = 0;
 };
