@@ -46,7 +46,7 @@ const menuList = [
   .nav {
     padding-top: 8px;
     padding-bottom: 8px;
-    background-color: var(--accent-blue);
+    background-color: #e5e5e5;
 
     .nav__list {
       display: flex;
@@ -72,15 +72,12 @@ const menuList = [
       font-weight: 600;
 
       transition: color ease-in-out 0.1s;
-      color: var(--text-color-inverse);
+      color: var(--text-color);
     }
 
+    .nav__link:hover,
     .nav__link.router-link-exact-active {
-      color: var(--accent-gray);
-    }
-
-    .nav__link:hover {
-      color: var(--accent-gray-hover);
+      color: var(--accent-blue);
     }
   }
 
