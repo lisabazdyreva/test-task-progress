@@ -64,6 +64,7 @@ const onInput = (evt: Event) => {
   .u-input__input {
     font-family: inherit;
     font-size: var(--size-16);
+    line-height: var(--size-20);
     border-radius: 10px;
     padding: 26px 20px 10px;
     border: 1px solid var(--accent-gray);

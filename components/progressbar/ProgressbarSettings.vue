@@ -93,17 +93,18 @@ const handleThemeChange = (evt: Event) => {
         :disabled="disabled"
         @select="handleThemeChange"
       />
-    </div>
 
-    <UInput
-      :model-value="String(maxPercent)"
-      type="number"
-      label="Процент остановки"
-      :disabled="disabled"
-      @update:model-value="
-        (value: string) => $emit('change-percent', Number(value))
-      "
-    />
+      <UInput
+        class="settings-list__percent"
+        :model-value="String(maxPercent)"
+        type="number"
+        label="Процент остановки"
+        :disabled="disabled"
+        @update:model-value="
+          (value: string) => $emit('change-percent', Number(value))
+        "
+      />
+    </div>
   </div>
 </template>
 
@@ -119,25 +120,23 @@ const handleThemeChange = (evt: Event) => {
   }
 
   .settings-list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    align-items: center;
     gap: 20px;
     max-width: 450px;
     margin: 0 auto 20px;
-
-    .settings-list__status,
-    .settings-list__theme,
-    .settings-list__speed {
-      flex: 1;
-    }
   }
 }
 
 @media screen and (min-width: 768px) {
   .progressbar-settings {
     .settings-list {
-      flex-direction: row;
+      grid-template-columns: repeat(3, 1fr);
       max-width: unset;
+
+      .settings-list__percent {
+        grid-column: 1/-1;
+      }
     }
   }
 }

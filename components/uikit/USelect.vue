@@ -48,9 +48,11 @@ const handleSelectChange = (evt: Event) => {
   }
 
   .u-select__select {
+    font-size: var(--size-16);
+    line-height: var(--size-20);
     min-width: 200px;
     width: 100%;
-    padding: 10px;
+    padding: 12px 20px;
     margin: 0;
     border: 1px solid var(--accent-gray);
     border-radius: 10px;
@@ -60,8 +62,8 @@ const handleSelectChange = (evt: Event) => {
     background-image: linear-gradient(45deg, transparent 50%, gray 50%),
       linear-gradient(135deg, gray 50%, transparent 50%);
     background-position:
-      calc(100% - 20px) calc(1em + 2px),
-      calc(100% - 15px) calc(1em + 2px);
+      calc(100% - 20px) calc(1em + 4px),
+      calc(100% - 15px) calc(1em + 4px);
     background-size:
       5px 5px,
       5px 5px,
